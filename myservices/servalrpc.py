@@ -24,11 +24,10 @@ class ServalService(CoreService):
     _dirs = ('/home/meshadmin/serval-conf/etc/serval', '/home/meshadmin/serval-conf/etc/serval/rpc_bin', '/home/meshadmin/serval-conf/var/log', '/home/meshadmin/serval-conf/var/log/serval', '/home/meshadmin/serval-conf/var/run/serval', '/home/meshadmin/serval-conf/var/cache/serval','/home/meshadmin/serval-conf/var/cache/serval/sqlite3tmp','/home/meshadmin/serval-conf/var/cache/serval/blob', '/tmp/rpc_tmp')
     # generated files (without a full path this file goes in the node's dir,
     #  e.g. /tmp/pycore.12345/n1.conf/)
-    _configs = ('/home/meshadmin/serval-conf/etc/serval/serval.conf', '/home/meshadmin/serval-conf/etc/serval/rpc.conf', '/home/meshadmin/serval-conf/etc/serval/rpc_bin/add', '/home/meshadmin/serval-conf/etc/serval/rpc_bin/concat', '/home/meshadmin/serval-conf/etc/serval/rpc_bin/echo_file', '/home/meshadmin/serval-conf/etc/serval/rpc_bin/ret_file', '/home/meshadmin/serval-conf/etc/serval/rpc_bin/ret_echo_file')
+    _configs = ('/home/meshadmin/serval-conf/etc/serval/serval.conf', '/home/meshadmin/serval-conf/etc/serval/rpc.conf', '/home/meshadmin/serval-conf/etc/serval/rpc_bin/simple', '/home/meshadmin/serval-conf/etc/serval/rpc_bin/complex')
     # this controls the starting order vs other enabled services
     _startindex = 50
     # list of startup commands, also may be generated during startup
-    #_startup = ('/home/meshadmin/serval-dna/servald start',)
     _startup = ('chmod -R 777 /home/meshadmin/serval-conf/etc/serval/rpc_bin',)
     # list of shutdown commands
     _shutdown = ()
@@ -42,36 +41,16 @@ class ServalService(CoreService):
         	cfg = 'interfaces.0.match=eth*\n'
         	cfg += 'interfaces.0.socket_type=dgram\n'
         	cfg += 'interfaces.0.type=ethernet\n'
-        	#cfg += 'log.file.rotate=0\n'
-        	#cfg += 'debug.rhizome=true\n'
-        	#cfg += 'debug.rhizome_manifest=true\n'
         	cfg += 'debug.msp=true\n'
         	cfg += 'api.restful.users.RPC.password=SRPC\n'
         elif filename == '/home/meshadmin/serval-conf/etc/serval/rpc.conf':
-            cfg = 'add 2 int int\n'
-            cfg += 'concat 2 string string\n'
-            cfg += 'echo_file 1 string\n'
-            cfg += 'ret_file 1 string\n'
-            cfg += 'ret_echo_file 1 string'
-        elif filename == '/home/meshadmin/serval-conf/etc/serval/rpc_bin/add':
-            cfg = 'res=$(( $1+$2 ))\n'
-            cfg += 'printf "$res"\n'
+            cfg = 'simple 1 string\n'
+            cfg += 'complex 1 string'
+        elif filename == '/home/meshadmin/serval-conf/etc/serval/rpc_bin/simple':
+            cfg = 'echo "$1 -> server"\n'
             cfg += 'exit 0'
-        elif filename == '/home/meshadmin/serval-conf/etc/serval/rpc_bin/concat':
-            cfg = 'printf "$1$2"\n'
-            cfg += 'exit 0'
-        elif filename == '/home/meshadmin/serval-conf/etc/serval/rpc_bin/echo_file':
-            cfg = 'cat $1\n'
-            cfg += 'exit 0'
-        elif filename == '/home/meshadmin/serval-conf/etc/serval/rpc_bin/ret_file':
-            cfg = 'printf $1 > /tmp/resultfile\n'
-            cfg += 'printf "/tmp/resultfile"\n'
-            cfg += 'exit 0'
-        elif filename == '/home/meshadmin/serval-conf/etc/serval/rpc_bin/ret_echo_file':
-            cfg = 'RET=$(cat $1)\n'
-            cfg += 'RET="$RET ---> server"\n'
-            cfg += 'printf "$RET" > /tmp/resultfile\n'
-            cfg += 'printf /tmp/resultfile\n'
+        elif filename == '/home/meshadmin/serval-conf/etc/serval/rpc_bin/complex':
+            cfg = 'echo "$1"\n'
             cfg += 'exit 0'
         else:
         	cfg = ''
