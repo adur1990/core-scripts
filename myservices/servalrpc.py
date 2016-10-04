@@ -21,14 +21,14 @@ class ServalService(CoreService):
     # list of other services this service depends on
     _depends = ('BroadcastFixService', )
     # per-node directories
-    _dirs = ('/home/meshadmin/serval-conf/etc/serval', '/home/meshadmin/serval-conf/etc/serval/rpc_bin', '/home/meshadmin/serval-conf/var/log', '/home/meshadmin/serval-conf/var/log/serval', '/home/meshadmin/serval-conf/var/run/serval', '/home/meshadmin/serval-conf/var/cache/serval','/home/meshadmin/serval-conf/var/cache/serval/sqlite3tmp','/home/meshadmin/serval-conf/var/cache/serval/blob', '/tmp/rpc_tmp')
+    _dirs = ('/home/artur/serval-conf/etc/serval', '/home/artur/serval-conf/etc/serval/rpc_bin', '/home/artur/serval-conf/var/log', '/home/artur/serval-conf/var/log/serval', '/home/artur/serval-conf/var/run/serval', '/home/artur/serval-conf/var/cache/serval','/home/artur/serval-conf/var/cache/serval/sqlite3tmp','/home/artur/serval-conf/var/cache/serval/blob', '/tmp/rpc_tmp')
     # generated files (without a full path this file goes in the node's dir,
     #  e.g. /tmp/pycore.12345/n1.conf/)
-    _configs = ('/home/meshadmin/serval-conf/etc/serval/serval.conf', '/home/meshadmin/serval-conf/etc/serval/rpc.conf', '/home/meshadmin/serval-conf/etc/serval/rpc_bin/simple', '/home/meshadmin/serval-conf/etc/serval/rpc_bin/complex')
+    _configs = ('/home/artur/serval-conf/etc/serval/serval.conf', '/home/artur/serval-conf/etc/serval/rpc.conf', '/home/artur/serval-conf/etc/serval/rpc_bin/simple', '/home/artur/serval-conf/etc/serval/rpc_bin/complex')
     # this controls the starting order vs other enabled services
     _startindex = 50
     # list of startup commands, also may be generated during startup
-    _startup = ('chmod -R 777 /home/meshadmin/serval-conf/etc/serval/rpc_bin',)
+    _startup = ('chmod -R 777 /home/artur/serval-conf/etc/serval/rpc_bin',)
     # list of shutdown commands
     _shutdown = ()
 
@@ -37,19 +37,19 @@ class ServalService(CoreService):
         ''' Return a string that will be written to filename, or sent to the
             GUI for user customization.
         '''
-        if filename == '/home/meshadmin/serval-conf/etc/serval/serval.conf':
+        if filename == '/home/artur/serval-conf/etc/serval/serval.conf':
         	cfg = 'interfaces.0.match=eth*\n'
         	cfg += 'interfaces.0.socket_type=dgram\n'
         	cfg += 'interfaces.0.type=ethernet\n'
         	cfg += 'debug.msp=true\n'
         	cfg += 'api.restful.users.RPC.password=SRPC\n'
-        elif filename == '/home/meshadmin/serval-conf/etc/serval/rpc.conf':
+        elif filename == '/home/artur/serval-conf/etc/serval/rpc.conf':
             cfg = 'simple 1 string\n'
             cfg += 'complex 1 string'
-        elif filename == '/home/meshadmin/serval-conf/etc/serval/rpc_bin/simple':
+        elif filename == '/home/artur/serval-conf/etc/serval/rpc_bin/simple':
             cfg = 'echo "$1 -> server"\n'
             cfg += 'exit 0'
-        elif filename == '/home/meshadmin/serval-conf/etc/serval/rpc_bin/complex':
+        elif filename == '/home/artur/serval-conf/etc/serval/rpc_bin/complex':
             cfg = 'echo "$1"\n'
             cfg += 'exit 0'
         else:
