@@ -38,11 +38,11 @@ class ServalService(CoreService):
             GUI for user customization.
         '''
         if filename == '/home/artur/serval-conf/etc/serval/serval.conf':
-        	cfg = 'interfaces.0.match=eth*\n'
-        	cfg += 'interfaces.0.socket_type=dgram\n'
-        	cfg += 'interfaces.0.type=ethernet\n'
-        	cfg += 'debug.msp=true\n'
-        	cfg += 'api.restful.users.RPC.password=SRPC\n'
+            cfg = 'interfaces.0.match=eth*\n'
+            cfg += 'interfaces.0.socket_type=dgram\n'
+            cfg += 'interfaces.0.type=ethernet\n'
+            cfg += 'api.restful.users.RPC.password=SRPC\n'
+            cfg += 'api.restful.newsince_timeout=5s'
         elif filename == '/home/artur/serval-conf/etc/serval/rpc.conf':
             cfg = 'simple 1 string\n'
             cfg += 'complex 1 string'
